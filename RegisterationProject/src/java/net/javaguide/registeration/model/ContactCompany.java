@@ -14,5 +14,21 @@ public enum ContactCompany {
     ORANGE,
     WE,
     ETISALATMISR,
-    WRONGENUMBER
+    WRONGENUMBER;
+    
+    public static ContactCompany getCompanyType(String companyId){
+        switch (companyId) {
+            case "010":
+                return ContactCompany.VODAFONE;
+            case "012":
+                return ContactCompany.ORANGE;
+            case "015":
+                return ContactCompany.WE;
+            case "011":
+                return ContactCompany.ETISALATMISR;
+            default:
+                return ContactCompany.WRONGENUMBER;
+        }
+    }
+    
 }

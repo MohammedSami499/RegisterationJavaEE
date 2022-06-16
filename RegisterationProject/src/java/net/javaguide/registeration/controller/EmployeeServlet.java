@@ -57,31 +57,12 @@ public class EmployeeServlet extends HttpServlet {
         
         Employee employee = new Employee();
         
-        //check which company the user belongs to
-        switch (sub) {
-            case "010":
-                employee.setContactCompany(ContactCompany.VODAFONE);
-                break;
-            case "012":
-                employee.setContactCompany(ContactCompany.ORANGE);
-                break;
-            case "015":
-                employee.setContactCompany(ContactCompany.WE);
-                break;
-            case "011":
-                employee.setContactCompany(ContactCompany.ETISALATMISR);
-                break;
-            default:
-                employee.setContactCompany(ContactCompany.WRONGENUMBER);
-                break;
-        }
-        
         employee.setFirst_name(firstName);
         employee.setLast_name(lastName);
         employee.setAddress(address);
         employee.setPassword(password);
         employee.setContact(contact);
-        
+        employee.setContactCompany(ContactCompany.getCompanyType(sub));
         try {
             
             empDao.registerEmployee(employee);
