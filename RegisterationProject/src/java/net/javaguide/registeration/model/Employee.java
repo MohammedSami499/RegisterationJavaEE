@@ -10,13 +10,14 @@ package net.javaguide.registeration.model;
  * @author Samy
  */
 public class Employee {
-    
+
     private String first_name;
     private String last_name;
     private String username;
     private String password;
     private String address;
     private String contact;
+    private ContactCompany contactCompany;
 
     public String getFirst_name() {
         return first_name;
@@ -65,7 +66,13 @@ public class Employee {
     public void setContact(String contact) {
         this.contact = contact;
     }
-    
-    
-    
+
+    public ContactCompany getContactCompany() {
+        return contactCompany;
+    }
+
+    public void setContactCompany(ContactCompany contactCompany) {
+        this.contactCompany = contactCompany;
+    }
+
 }

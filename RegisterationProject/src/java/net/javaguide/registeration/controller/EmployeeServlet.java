@@ -3,14 +3,13 @@ package net.javaguide.registeration.controller;
 
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.javaguide.registeration.dao.EmployeeDao;
+import net.javaguide.registeration.model.ContactCompany;
 import net.javaguide.registeration.model.Employee;
 import sun.rmi.server.Dispatcher;
 
@@ -53,8 +52,30 @@ public class EmployeeServlet extends HttpServlet {
         String address = request.getParameter("address");
         String contact = request.getParameter("contact");
         
+        //getting the identifying of contact company
+        String sub = contact.substring(0, 3);
         
         Employee employee = new Employee();
+        
+        //check which company the user belongs to
+        switch (sub) {
+            case "010":
+                employee.setContactCompany(ContactCompany.VODAFONE);
+                break;
+            case "012":
+                employee.setContactCompany(ContactCompany.ORANGE);
+                break;
+            case "015":
+                employee.setContactCompany(ContactCompany.WE);
+                break;
+            case "011":
+                employee.setContactCompany(ContactCompany.ETISALATMISR);
+                break;
+            default:
+                employee.setContactCompany(ContactCompany.WRONGENUMBER);
+                break;
+        }
+        
         employee.setFirst_name(firstName);
         employee.setLast_name(lastName);
         employee.setAddress(address);
@@ -68,6 +89,8 @@ public class EmployeeServlet extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+        
+        request.setAttribute("emp", employee);
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/employeedetails.jsp");
         dispatcher.forward(request, response);
